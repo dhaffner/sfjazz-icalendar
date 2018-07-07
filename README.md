@@ -2,7 +2,9 @@ This is a quick and dirty script to generate an iCalendar from [SFJAZZ events](h
 
 # Usage
 
+```
 $ git clone https://github.com/dhaffner/sfjazz-icalendar.git
 $ cd sfjazz.ics
 $ make all
 $ cat sfjazz.ics
+```
