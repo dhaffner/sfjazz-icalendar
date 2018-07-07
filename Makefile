@@ -1,6 +1,17 @@
-src/data.json:
-	mkdir -vp $(dir $@);
-	curl -f "https://www.sfjazz.org/ace-api/events?startDate=2018-06-01&endDate=2019-06-30" > $@;
-	\ls -l $@;
+.PHONY: clean all
+OUTPUT=sfjazz.ics
 
-all: src/data.json
+all: $(OUTPUT)
+
+$(OUTPUT): venv
+	curl -f "https://www.sfjazz.org/ace-api/events?startDate=$(shell date "+%F")&endDate=$(shell date --date="next year" "+%F")" 2>/dev/null \
+		| $</bin/python sfjazz.py \
+		> $@;
+	ls -l $@;
+
+venv:
+	python3 -mvenv $@;
+	$@/bin/pip install ics;
+
+clean:
+	rm -fv $(OUTPUT);
